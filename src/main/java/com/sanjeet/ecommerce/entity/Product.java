@@ -1,5 +1,6 @@
 package com.sanjeet.ecommerce.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,8 +18,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6109139281375503227L;
+
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -146,7 +152,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", category=" + category + ", sku=" + sku + ", name=" + name + ", description="
+		return "Product [id=" + id + ", category=" + category + ",  sku=" + sku + ", name=" + name + ", description="
 				+ description + ", unitPrice=" + unitPrice + ", imageUrl=" + imageUrl + ", active=" + active
 				+ ", unitsInStock=" + unitsInStock + ", dateCreated=" + dateCreated + ", lastUpdated=" + lastUpdated
 				+ "]";
