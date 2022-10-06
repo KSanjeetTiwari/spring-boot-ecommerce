@@ -12,7 +12,7 @@ import com.sanjeet.ecommerce.repository.ProductRepositoy;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 @RestController
 @CrossOrigin
 public class ProductController {
@@ -22,7 +22,7 @@ public class ProductController {
 	
 	@GetMapping("products")
 	public List<Product> getAllProduct(){
-		System.out.println(productRepositoy.findAll());
 		return productRepositoy.findAll();
 	}
+	
 }

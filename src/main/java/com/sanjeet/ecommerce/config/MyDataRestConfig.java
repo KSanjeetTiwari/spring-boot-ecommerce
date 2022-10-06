@@ -22,7 +22,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
 	private EntityManager entityManager;
 
-	@Autowired
+@Autowired
 	public MyDataRestConfig(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
@@ -53,6 +53,34 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 			entityClasses.add(tempEntityType.getJavaType());
 		}
 
+    @Override
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
+
+        HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
+
+        // disable HTTP methods for Product: PUT, POST, DELETE and PATCH
+        config.getExposureConfiguration()
+                .forDomainType(Product.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+
+        // disable HTTP methods for ProductCategory: PUT, POST, DELETE and PATCH
+        config.getExposureConfiguration()
+                .forDomainType(ProductCategory.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        exposeIds(config);
+    }
+
+	private void exposeIds(RepositoryRestConfiguration config) {
+		
+		Set<EntityType<?>> entities = entityManager.getMetamodel().getEntities();
+		List<Class> entityClasses = new ArrayList<>();
+		
+		for(EntityType tempEntityType: entities) {
+			entityClasses.add(tempEntityType.getJavaType());
+		}
+		 
 		Class[] domainType = entityClasses.toArray(new Class[0]);
 		config.exposeIdsFor(domainType);
 	}
