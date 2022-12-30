@@ -30,7 +30,6 @@ public class ProductCategory {
 	private String categoryName;
 	
 	@OneToMany(cascade=CascadeType.ALL, targetEntity=Product.class,mappedBy = "category")
-//	(cascade = CascadeType.ALL,mappedBy = "category")
 	private Set<Product> products;
 		
 

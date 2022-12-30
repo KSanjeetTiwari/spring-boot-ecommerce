@@ -45,11 +45,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 	}
 
 	private void exposeIds(RepositoryRestConfiguration config) {
-
+		
 		Set<EntityType<?>> entities = entityManager.getMetamodel().getEntities();
 		List<Class> entityClasses = new ArrayList<>();
-
-		for (EntityType tempEntityType : entities) {
+		
+		for(EntityType tempEntityType: entities) {
 			entityClasses.add(tempEntityType.getJavaType());
 		}
  
